@@ -18,7 +18,7 @@ export class SocialArea extends Area
         if(this.game.debug.active)
         {
             this.debugPanel = this.game.debug.panel.addFolder({
-                title: '👨‍🦲 Social',
+                title: '🌐 Social Hub',
                 expanded: false,
             })
         }
@@ -175,7 +175,7 @@ export class SocialArea extends Area
     {
         const interactiveArea = this.game.interactivePoints.create(
             this.references.items.get('onlyFans')[0].position,
-            'OnlyFans',
+            'Air Stream',
             InteractivePoints.ALIGN_RIGHT,
             InteractivePoints.STATE_CONCEALED,
             () =>

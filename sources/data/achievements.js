@@ -1,5 +1,4 @@
 import labData from './lab.js'
-import projectsData from './projects.js'
 
 export default
 [
@@ -18,15 +17,14 @@ export default
     ],
     [
         'projects',
-        'But can you fix the wifi?',
-        'Check every project in the <strong>projects</strong> area.',
-        projectsData.length,
-        true // Unique
+        'The Ancient Forge',
+        'Discover the legendary anvil and forge.',
+        1
     ],
     [
         'lab',
-        'I\'m a bit of a scientist myself',
-        'Check every project in the <strong>lab</strong> area.',
+        'Chief Scientist',
+        'Inspect every module in <strong>RK LAB</strong>.',
         labData.length,
         true // Unique
     ],

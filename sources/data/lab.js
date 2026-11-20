@@ -1,79 +1,79 @@
 export default [
     {
-        title: 'Black Hole',
-        url: 'https://awwwards-2022-workshop.vercel.app',
+        title: 'Gravity Well',
+        url: 'VORTEX ANOMALY // 9.81 m/s²',
         image: 'black-hole.ktx',
         imageMini: 'black-hole-mini.ktx'
     },
     {
-        title: 'Infinite World',
-        url: 'https://infinite-world.vercel.app',
+        title: 'Infinite Horizon',
+        url: 'PROCEDURAL TERRAIN ENGINE',
         image: 'infinite-world.ktx',
         imageMini: 'infinite-world-mini.ktx'
     },
     {
-        title: 'My Room in 3D',
-        url: 'https://my-room-in-3d.vercel.app',
+        title: 'Chassis Chamber',
+        url: 'VEHICLE SUSPENSION RIG',
         image: 'my-room-in-3d.ktx',
         imageMini: 'my-room-in-3d-mini.ktx',
     },
     {
-        title: 'Particles System',
-        url: 'https://three-js-tsl-particles-system.vercel.app',
+        title: 'Particle Accelerator',
+        url: 'TSL COMPUTE RUNTIME',
         image: 'particles-system.ktx',
         imageMini: 'particles-system-mini.ktx'
     },
     {
-        title: 'Stylized Low Poly',
-        url: 'https://stylized-low-poly.vercel.app',
+        title: 'Low-Poly Biome',
+        url: 'TERRAIN DEFORMATION MATRIX',
         image: 'stylized-low-poly.ktx',
         imageMini: 'stylized-low-poly-mini.ktx'
     },
     {
-        title: 'Holographic terrain',
-        url: 'https://experiment-holographic-terrain.vercel.app',
+        title: 'Holographic Radar',
+        url: 'ISLAND SONAR SCANNER',
         image: 'holographic-terrain.ktx',
         imageMini: 'holographic-terrain-mini.ktx'
     },
     {
-        title: 'Woodkid Volcano Robot',
-        url: 'https://experiment-woodkid-volcano-robot.vercel.app',
+        title: 'Volcanic Dynamo',
+        url: 'GEOTHERMAL ENERGY CORE',
         image: 'woodkid-volcano-robot.ktx',
         imageMini: 'woodkid-volcano-robot-mini.ktx'
     },
     {
-        title: 'Bounce Friday',
-        url: 'https://threejs-journey.com/apps/bounce-friday/',
+        title: 'Suspension Overdrive',
+        url: 'HYDRAULIC BOUNCE MATRIX',
         image: 'bounce-friday.ktx',
         imageMini: 'bounce-friday-mini.ktx'
     },
     {
-        title: 'VFX flames',
-        url: 'https://threejs.org/examples/webgpu_tsl_vfx_flames.html',
+        title: 'Thermal Turbine',
+        url: 'AFTERBURNER COMBUSTION',
         image: 'vfx-flames.ktx',
         imageMini: 'vfx-flames-mini.ktx'
     },
     {
-        title: 'VFX tornado',
-        url: 'https://threejs.org/examples/webgpu_tsl_vfx_tornado.html',
+        title: 'Vortex Generator',
+        url: 'AERODYNAMIC TORNADO FIELD',
         image: 'vfx-tornado.ktx',
         imageMini: 'vfx-tornado-mini.ktx'
     },
     {
-        title: 'DOOM Portal',
-        url: 'https://doom-portal-in-webgl.vercel.app',
+        title: 'Doom Gateway',
+        url: 'QUANTUM RIFT APERTURE',
         image: 'doom-portal.ktx',
         imageMini: 'doom-portal-mini.ktx'
     },
     {
-        title: 'Organic Sphere',
-        url: 'https://organic-sphere.vercel.app',
+        title: 'Organic Singularity',
+        url: 'DARK MATTER RESONATOR',
         image: 'organic-sphere.ktx',
         imageMini: 'organic-sphere-mini.ktx'
     },
     {
-        title: 'Attractors',
-        url: 'https://threejs.org/examples/webgpu_tsl_compute_attractors_particles.html',
+        title: 'Attractor Core',
+        url: 'KINETIC PARTICLE MATRIX',
         image: 'attractors.ktx',
         imageMini: 'attractors-mini.ktx'
     }

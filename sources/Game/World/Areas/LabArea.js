@@ -27,7 +27,7 @@ export class LabArea extends Area
         if(this.game.debug.active)
         {
             this.debugPanel = this.game.debug.panel.addFolder({
-                title: '🧪 Lab',
+                title: '🧪 RK LAB',
                 expanded: false,
             })
         }
@@ -90,7 +90,7 @@ export class LabArea extends Area
     {
         this.interactivePoint = this.game.interactivePoints.create(
             this.references.items.get('interactivePoint')[0].position,
-            'Lab',
+            'RK LAB',
             InteractivePoints.ALIGN_RIGHT,
             InteractivePoints.STATE_CONCEALED,
             () =>
@@ -732,9 +732,15 @@ export class LabArea extends Area
         // Open
         this.url.open = () =>
         {
-            if(this.navigation.current.url)
+            if(this.navigation.current.url && this.navigation.current.url.startsWith('http'))
             {
                 window.open(this.navigation.current.url, '_blank')
+            }
+            else
+            {
+                const clickSound = this.game.audio.groups.get('click')
+                if(clickSound)
+                    clickSound.play(true)
             }
         }
     }
