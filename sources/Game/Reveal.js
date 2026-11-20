@@ -162,7 +162,10 @@ export class Reveal
             )
 
             // Intro loader => Hide label
-            this.game.world.intro.hideLabel()
+            if(this.game.world.intro)
+                this.game.world.intro.hideLabel()
+
+            document.querySelector('.rk-loader')?.classList.add('is-dismissed')
 
             // Inputs
             this.game.inputs.filters.clear()
