@@ -24,7 +24,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Nunito:wght@400;700;900&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="./style/index.styl">
 
@@ -42,13 +42,22 @@
 </head>
 <body>
 
-    <!-- RK WORLD Loading Screen -->
-    <div class="rk-loader js-rk-loader" onclick="this.classList.add('is-dismissed')">
+    <!-- RK WORLD Futuristic Gaming Opening Title & Loader -->
+    <div class="rk-loader js-rk-loader">
+        <div class="rk-loader-backdrop"></div>
         <div class="rk-loader-inner">
+            <div class="rk-badge">STANDALONE 3D EXPERIENCE</div>
             <h1 class="rk-loader-title">RK WORLD</h1>
-            <div class="rk-loader-sub">CREATED BY ROHITH KUMAR</div>
-            <div class="rk-loader-line"></div>
-            <div class="rk-loader-status">STARTING ENGINE</div>
+            <div class="rk-loader-creator">CREATED BY <span class="rk-highlight">ROHITH KUMAR</span></div>
+            <div class="rk-loader-tech-line">
+                <span class="rk-line-left"></span>
+                <span class="rk-line-core"></span>
+                <span class="rk-line-right"></span>
+            </div>
+            <div class="rk-loader-progress-track">
+                <div class="rk-loader-progress-bar js-rk-progress-bar"></div>
+            </div>
+            <div class="rk-loader-status js-rk-status">INITIALIZING ENGINE</div>
         </div>
     </div>
 

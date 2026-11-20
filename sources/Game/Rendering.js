@@ -2,7 +2,6 @@ import * as THREE from 'three/webgpu'
 import { pass, mrt, output, emissive, renderOutput, vec4 } from 'three/tsl'
 import { bloom } from 'three/addons/tsl/display/BloomNode.js'
 import { Game } from './Game.js'
-import { cheapDOF } from './Passes/cheapDOF.js'
 import { Inspector } from 'three/addons/inspector/Inspector.js'
 
 export class Rendering
@@ -84,8 +83,6 @@ export class Rendering
         this.bloomPass.strength.value = 0.25
         this.bloomPass.smoothWidth.value = 1
 
-        this.cheapDOFPass = cheapDOF(renderOutput(scenePass))
-
         // Quality
         const qualityChange = (level) =>
         {
@@ -107,18 +104,6 @@ export class Rendering
             bloomPanel.addBinding(this.bloomPass.strength, 'value', { label: 'strength', min: 0, max: 3, step: 0.01 })
             bloomPanel.addBinding(this.bloomPass.radius, 'value', { label: 'radius', min: 0, max: 1, step: 0.01 })
             bloomPanel.addBinding(this.bloomPass.smoothWidth, 'value', { label: 'smoothWidth', min: 0, max: 1, step: 0.01 })
-
-            const blurPanel = this.debugPanel.addFolder({
-                title: 'blur',
-                expanded: true,
-            })
-
-            blurPanel.addBinding(this.cheapDOFPass.start, 'value', { label: 'start', min: 0, max: 0.5, step: 0.001 })
-            blurPanel.addBinding(this.cheapDOFPass.end, 'value', { label: 'end', min: 0, max: 0.5, step: 0.001 })
-            // blurPanel.addBinding(this.cheapDOFPass.size, 'value', { label: 'size', min: 1, max: 5, step: 1 })
-            // blurPanel.addBinding(this.cheapDOFPass.separation, 'value', { label: 'separation', min: 0, max: 5, step: 0.001 })
-            blurPanel.addBinding(this.cheapDOFPass.repeats, 'value', { label: 'repeats', min: 1, max: 100, step: 1 })
-            blurPanel.addBinding(this.cheapDOFPass.amount, 'value', { label: 'amount', min: 0, max: 0.02, step: 0.0001 })
         }
     }
 

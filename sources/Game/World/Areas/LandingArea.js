@@ -132,45 +132,49 @@ export class LandingArea extends Area
         const ctx = canvas.getContext('2d')
 
         // Background
-        ctx.fillStyle = 'rgba(29, 23, 33, 0.95)'
+        ctx.fillStyle = 'rgba(8, 14, 26, 0.96)'
         if(ctx.roundRect)
-            ctx.roundRect(16, 16, 992, 224, 28)
+            ctx.roundRect(16, 16, 992, 224, 8)
         else
             ctx.fillRect(16, 16, 992, 224)
         ctx.fill()
 
-        // Outer border
-        ctx.strokeStyle = '#e88eff'
-        ctx.lineWidth = 8
+        // Outer border - sharp electric blue
+        ctx.strokeStyle = '#00d2ff'
+        ctx.lineWidth = 6
+        ctx.shadowColor = 'rgba(0, 210, 255, 0.6)'
+        ctx.shadowBlur = 15
         if(ctx.roundRect)
-            ctx.roundRect(16, 16, 992, 224, 28)
+            ctx.roundRect(16, 16, 992, 224, 8)
         else
             ctx.strokeRect(16, 16, 992, 224)
         ctx.stroke()
 
-        // Inner glowing border
-        ctx.strokeStyle = '#ff3b68'
-        ctx.lineWidth = 3
+        // Inner glowing border - metallic cyan
+        ctx.shadowBlur = 0
+        ctx.strokeStyle = 'rgba(92, 225, 230, 0.5)'
+        ctx.lineWidth = 2
         if(ctx.roundRect)
-            ctx.roundRect(26, 26, 972, 204, 20)
+            ctx.roundRect(24, 24, 976, 208, 4)
         else
-            ctx.strokeRect(26, 26, 972, 204)
+            ctx.strokeRect(24, 24, 976, 208)
         ctx.stroke()
 
-        // Main text: EXPLORE THE ISLAND
+        // Main text: EXPLORE THE ISLAND (Bold geometric gaming typography)
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
-        ctx.font = 'bold 84px "Amatic SC", "Nunito", sans-serif'
+        ctx.font = '900 64px "Orbitron", "Rajdhani", sans-serif'
         ctx.fillStyle = '#ffffff'
-        ctx.shadowColor = '#e88eff'
-        ctx.shadowBlur = 20
-        ctx.fillText('EXPLORE THE ISLAND', 512, 108)
+        ctx.shadowColor = '#00d2ff'
+        ctx.shadowBlur = 24
+        ctx.fillText('EXPLORE THE ISLAND', 512, 102)
 
-        // Subtitle: RK WORLD
+        // Subtitle: RK WORLD // CREATED BY ROHITH KUMAR
         ctx.shadowBlur = 0
-        ctx.font = 'bold 26px "Nunito", sans-serif'
-        ctx.fillStyle = '#cda7f3'
-        ctx.fillText('RK WORLD', 512, 178)
+        ctx.font = '700 20px "Rajdhani", sans-serif'
+        ctx.fillStyle = '#8ba2be'
+        ctx.letterSpacing = '4px'
+        ctx.fillText('RK WORLD  //  CREATED BY ROHITH KUMAR', 512, 172)
 
         const canvasTexture = new THREE.CanvasTexture(canvas)
         canvasTexture.colorSpace = THREE.SRGBColorSpace

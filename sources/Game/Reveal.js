@@ -15,7 +15,7 @@ export class Reveal
         this.position2Uniform = uniform(vec2(this.position.x, this.position.z))
         this.distance = uniform(0)
         this.thickness = uniform(0.05)
-        this.color = uniform(color('#e88eff'))
+        this.color = uniform(color('#00d2ff'))
         this.intensity = uniform(5.5)
         this.intensityMultiplier = 1
         this.sound = this.game.audio.register({
@@ -50,6 +50,8 @@ export class Reveal
         // Step 0
         if(step === 0)
         {
+            document.querySelector('.js-rk-loader')?.classList.add('is-dismissed')
+
             // Intro loader => Hide circle
             this.game.world.intro.circle.hide(() =>
             {

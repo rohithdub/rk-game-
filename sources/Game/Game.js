@@ -94,12 +94,12 @@ export class Game
         this.rendering = new Rendering()
         await this.rendering.setRenderer()
 
-        const compressed = !!import.meta.env.VITE_COMPRESSED
+        const compressed = import.meta.env.VITE_COMPRESSED !== '0' && import.meta.env.VITE_COMPRESSED !== false
         const compressedModelSuffix = compressed ? '-compressed' : ''
         const compressedTextureFormat = compressed ? 'textureKtx' : 'texture'
         const compressedTextureExtension = compressed ? 'ktx' : 'png'
 
-        const cb = '?cb=1'
+        const cb = ''
         this.resources = await this.resourcesLoader.load([
             [ 'respawnsReferencesModel',    `respawns/respawnsReferences${compressedModelSuffix}.glb${cb}`, 'gltf' ],
             [ 'behindTheSceneStarsTexture', `behindTheScene/stars.${compressedTextureExtension}${cb}`,      compressedTextureFormat, (resource) => { resource.colorSpace = THREE.SRGBColorSpace; resource.minFilter = THREE.NearestFilter; resource.magFilter = THREE.NearestFilter; resource.generateMipmaps = false; resource.wrapS = THREE.RepeatWrapping; resource.wrapT = THREE.RepeatWrapping; } ],
@@ -168,13 +168,29 @@ export class Game
             ],
             (toLoad, total) =>
             {
-                this.world.intro.updateProgress(1 - toLoad / total)
+                const progressRatio = 1 - toLoad / total
+                this.world.intro.updateProgress(progressRatio)
+
+                const progressBar = document.querySelector('.js-rk-progress-bar')
+                const statusEl = document.querySelector('.js-rk-status')
+                const percent = Math.round(progressRatio * 100)
+                if(progressBar)
+                    progressBar.style.width = `${percent}%`
+                if(statusEl)
+                    statusEl.textContent = `LOADING ASSETS // ${percent}%`
             }
         )
 
         const [ newResources, RAPIER ] = await Promise.all([ resourcesPromise, rapierPromise ])
         this.RAPIER = RAPIER
         this.resources = { ...newResources, ...this.resources }
+
+        const statusEl = document.querySelector('.js-rk-status')
+        const progressBar = document.querySelector('.js-rk-progress-bar')
+        if(progressBar)
+            progressBar.style.width = '100%'
+        if(statusEl)
+            statusEl.textContent = 'SYSTEM READY // LAUNCHING'
 
         this.terrain = new Terrain()
         this.physics = new Physics()
@@ -193,11 +209,16 @@ export class Game
         this.world.step(1)
         this.overlay = new Overlay()
 
-        // Pre-render disabled to eliminate startup freeze/hang
-        // if(this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend)
-        //     PreRenderer.render()
+        try
+        {
+            if(typeof this.rendering.renderer.compileAsync === 'function')
+                await this.rendering.renderer.compileAsync(this.scene, this.view.camera)
+        }
+        catch(e)
+        {
+        }
 
-        this.ticker.wait(3, () =>
+        this.ticker.wait(1, () =>
         {
             this.reveal.updateStep(0)
         })
