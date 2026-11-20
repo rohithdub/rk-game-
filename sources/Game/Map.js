@@ -47,7 +47,6 @@ export class Map
             { name: 'Bowling', respawnName: 'bowling', offset: { x: -0.08, y: 0.03 } },
             { name: 'Circuit', respawnName: 'circuit', offset: { x: -0.08, y: -0.05 } },
             { name: 'Cookie', respawnName: 'cookie', offset: { x: -0.02, y: -0.01 } },
-            { name: 'RK LAB', respawnName: 'lab', offset: { x: -0.03, y: 0 } },
             { name: 'Landing', respawnName: 'landing', offset: { x: 0.02, y: 0 } },
             { name: 'Social Hub', respawnName: 'social', offset: { x: -0.01, y: -0.04 } },
             { name: 'Time Machine', respawnName: 'timeMachine', offset: { x: 0, y: 0 } },

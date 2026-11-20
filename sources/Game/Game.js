@@ -239,8 +239,10 @@ export class Game
             // Social
             if(this.world.areas.social)
             {
-                this.world.areas.social.statue.down = false
-                this.world.areas.social.fans.instancedGroup.needsUpdate = true
+                if(this.world.areas.social.statue)
+                    this.world.areas.social.statue.down = false
+                if(this.world.areas.social.fans?.instancedGroup)
+                    this.world.areas.social.fans.instancedGroup.needsUpdate = true
             }
             
             // Benches

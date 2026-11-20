@@ -6,5 +6,4 @@ export default [
     { name: 'Options', menu: 'options', align: 'right' },
     { name: 'Behind the Scene', menu: 'behindTheScene', align: 'left' },
     { name: 'Map', modal: 'map', align: 'left' },
-    { name: 'Discord', modal: 'discord', align: 'left' },
 ]

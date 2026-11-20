@@ -1,5 +1,3 @@
-import labData from './lab.js'
-
 export default
 [
     [
@@ -20,13 +18,6 @@ export default
         'The Ancient Forge',
         'Discover the legendary anvil and forge.',
         1
-    ],
-    [
-        'lab',
-        'Chief Scientist',
-        'Inspect every module in <strong>RK LAB</strong>.',
-        labData.length,
-        true // Unique
     ],
     [
         'cookie',
@@ -198,21 +189,9 @@ export default
         1
     ],
     [
-        'fan',
-        'You’re my only fan',
-        'Spawn a fan.',
-        1
-    ],
-    [
         'reset',
         'Clean your room',
         'Put back everything as it was.',
-        1
-    ],
-    [
-        'statueDown',
-        'Revolution!',
-        'Tear that statue down.',
         1
     ],
     [
