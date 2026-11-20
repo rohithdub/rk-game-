@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a1636"/>
+      <stop offset="50%" stop-color="#1d1326"/>
+      <stop offset="100%" stop-color="#0e0a14"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3b68"/>
+      <stop offset="50%" stop-color="#bf55ec"/>
+      <stop offset="100%" stop-color="#00d2ff"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#f0e6ff"/>
+      <stop offset="100%" stop-color="#d1b8ff"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect x="24" y="24" width="464" height="464" rx="100" fill="url(#bgGrad)" stroke="#4a2e63" stroke-width="8"/>
+  <rect x="40" y="40" width="432" height="432" rx="84" fill="none" stroke="url(#accentGrad)" stroke-width="3" opacity="0.6"/>
+
+  <!-- Speed Lines / Horizon -->
+  <path d="M 60 360 Q 256 340 452 360" stroke="#bf55ec" stroke-width="4" fill="none" opacity="0.4"/>
+  <path d="M 80 380 Q 256 365 432 380" stroke="#ff3b68" stroke-width="3" fill="none" opacity="0.3"/>
+
+  <!-- RK Monogram -->
+  <g filter="url(#glow)">
+    <!-- Letter R -->
+    <path d="M 110 150 L 195 150 C 235 150 255 170 255 205 C 255 240 235 258 195 260 L 260 350 L 205 350 L 155 275 L 155 350 L 110 350 Z M 155 188 L 155 232 L 190 232 C 210 232 220 222 220 210 C 220 198 210 188 190 188 Z" fill="url(#textGrad)"/>
+
+    <!-- Letter K -->
+    <path d="M 285 150 L 330 150 L 330 228 L 388 150 L 445 150 L 368 250 L 452 350 L 395 350 L 330 270 L 330 350 L 285 350 Z" fill="url(#textGrad)"/>
+  </g>
+
+  <!-- Tire Track / Apex Accent Dot -->
+  <circle cx="256" cy="405" r="8" fill="#00d2ff" opacity="0.9"/>
+  <circle cx="230" cy="405" r="5" fill="#bf55ec" opacity="0.7"/>
+  <circle cx="282" cy="405" r="5" fill="#ff3b68" opacity="0.7"/>
+</svg>
