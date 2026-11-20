@@ -135,14 +135,12 @@ export class Reveal
                         }
                     })
                     
-                    // Inputs (for gamepad and keyboard)
+                    // Inputs (for gamepad, keyboard, and click)
                     this.game.inputs.addActions([
-                        { name: 'introStart', categories: [ 'intro' ], keys: [ 'Gamepad.cross', 'Keyboard.Enter', 'Keyboard.ArrowUp', 'Keyboard.ArrowDown', 'Keyboard.KeyW', 'Keyboard.KeyD' ] },
+                        { name: 'introStart', categories: [ 'intro' ], keys: [ 'Gamepad.cross', 'Gamepad.a', 'Keyboard.Enter', 'Keyboard.Space', 'Keyboard.ArrowUp', 'Keyboard.ArrowDown', 'Keyboard.ArrowLeft', 'Keyboard.ArrowRight', 'Keyboard.KeyW', 'Keyboard.KeyA', 'Keyboard.KeyS', 'Keyboard.KeyD' ] },
                     ])
-
-            // { name: 'forward',               categories: [ 'wandering', 'racing', 'cinematic' ], keys: [ 'Keyboard.ArrowUp', 'Keyboard.KeyW', 'Gamepad.up', 'Gamepad.r2' ] },
-            // { name: 'right',                 categories: [ 'wandering', 'racing', 'cinematic' ], keys: [ 'Keyboard.ArrowRight', 'Keyboard.KeyD', 'Gamepad.right' ] },
                     this.game.inputs.events.on('introStart', inputCallback)
+                    window.addEventListener('pointerdown', inputCallback, { once: true })
                 }
             })
         }
@@ -152,18 +150,14 @@ export class Reveal
             this.game.audio.init()
             this.sound.play()
 
-            // Reveal
+            // Reveal outward smoothly without dipping into negative
             gsap.to(
                 this.distance,
                 {
-                    value: 30,
-                    ease: 'back.in(1.3)',
-                    duration: 2 / speedMultiplier,
-                    overwrite: true,
-                    onComplete: () =>
-                    {
-                        this.distance.value = 99999
-                    }
+                    value: 99999,
+                    ease: 'power2.out',
+                    duration: 1.5 / speedMultiplier,
+                    overwrite: true
                 }
             )
 

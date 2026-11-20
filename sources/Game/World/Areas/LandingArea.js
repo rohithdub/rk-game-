@@ -25,16 +25,119 @@ export class LandingArea extends Area
     {
         const references = this.references.items.get('letters')
 
-        for(const reference of references)
+        if(references)
         {
-            const physical = reference.userData.object.physical
-            physical.colliders[0].setActiveEvents(this.game.RAPIER.ActiveEvents.CONTACT_FORCE_EVENTS)
-            physical.colliders[0].setContactForceEventThreshold(5)
-            physical.onCollision = (force, position) =>
+            for(const reference of references)
             {
-                this.game.audio.groups.get('hitBrick').playRandomNext(force, position)
+                // Remove Bruno Simon 3D visual letters
+                if(reference.userData?.object?.visual?.object3D)
+                {
+                    reference.userData.object.visual.object3D.visible = false
+                }
+                // Disable physical body so it doesn't block the car
+                if(reference.userData?.object?.physical?.body)
+                {
+                    reference.userData.object.physical.body.setEnabled(false)
+                }
             }
         }
+
+        this.setExploreSign()
+    }
+
+    setExploreSign()
+    {
+        const references = this.references.items.get('letters')
+        if(!references || !references.length)
+            return
+
+        // Calculate center position
+        const center = new THREE.Vector3()
+        for(const ref of references)
+        {
+            center.add(ref.position)
+        }
+        center.divideScalar(references.length)
+
+        // 3D Explore Sign Group
+        const group = new THREE.Group()
+        group.position.copy(center)
+        group.position.y += 1.8
+        group.rotation.y = 0.22
+
+        // Canvas texture for sign
+        const canvas = document.createElement('canvas')
+        canvas.width = 1024
+        canvas.height = 256
+        const ctx = canvas.getContext('2d')
+
+        // Background
+        ctx.fillStyle = 'rgba(29, 23, 33, 0.95)'
+        if(ctx.roundRect)
+            ctx.roundRect(16, 16, 992, 224, 28)
+        else
+            ctx.fillRect(16, 16, 992, 224)
+        ctx.fill()
+
+        // Outer border
+        ctx.strokeStyle = '#e88eff'
+        ctx.lineWidth = 8
+        if(ctx.roundRect)
+            ctx.roundRect(16, 16, 992, 224, 28)
+        else
+            ctx.strokeRect(16, 16, 992, 224)
+        ctx.stroke()
+
+        // Inner glowing border
+        ctx.strokeStyle = '#ff3b68'
+        ctx.lineWidth = 3
+        if(ctx.roundRect)
+            ctx.roundRect(26, 26, 972, 204, 20)
+        else
+            ctx.strokeRect(26, 26, 972, 204)
+        ctx.stroke()
+
+        // Main text: EXPLORE THE ISLAND
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.font = 'bold 84px "Amatic SC", "Nunito", sans-serif'
+        ctx.fillStyle = '#ffffff'
+        ctx.shadowColor = '#e88eff'
+        ctx.shadowBlur = 20
+        ctx.fillText('EXPLORE THE ISLAND', 512, 108)
+
+        // Subtitle: RK WORLD
+        ctx.shadowBlur = 0
+        ctx.font = 'bold 26px "Nunito", sans-serif'
+        ctx.fillStyle = '#cda7f3'
+        ctx.fillText('RK WORLD', 512, 178)
+
+        const texture = new THREE.CanvasTexture(canvas)
+        texture.colorSpace = THREE.SRGBColorSpace
+
+        const geometry = new THREE.PlaneGeometry(8, 2)
+        const material = new THREE.MeshBasicNodeMaterial({
+            map: texture,
+            transparent: true,
+            side: THREE.DoubleSide
+        })
+
+        const mesh = new THREE.Mesh(geometry, material)
+        group.add(mesh)
+
+        // Support posts
+        const postGeometry = new THREE.CylinderGeometry(0.08, 0.08, 2.6, 8)
+        const postMaterial = new THREE.MeshBasicNodeMaterial({ color: 0x3d3047 })
+
+        const leftPost = new THREE.Mesh(postGeometry, postMaterial)
+        leftPost.position.set(-3.2, -0.6, 0)
+        group.add(leftPost)
+
+        const rightPost = new THREE.Mesh(postGeometry, postMaterial)
+        rightPost.position.set(3.2, -0.6, 0)
+        group.add(rightPost)
+
+        this.game.scene.add(group)
     }
 
     setKiosk()
