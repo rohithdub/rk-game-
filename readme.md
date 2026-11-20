@@ -1,151 +1,104 @@
-# Folio 2025
+# RK WORLD
 
-![image info](./static/social/share-image.png)
+A standalone 3D browser game created by **Rohith Kumar**, built upon the 3D interactive driving foundation of **Bruno Simon's Folio 2025**.
 
-## Setup
+---
 
-Create `.env` file based on `.env.example`
+## Overview
 
-Download and install [Node.js](https://nodejs.org/en/download/) then run this followed commands:
+**RK WORLD** transforms the acclaimed 3D driving experience into a standalone game. Explore an expansive interactive world with realistic vehicle physics, dynamic weather, day-night cycles, hidden challenges, racing circuits, and environmental interactions.
 
-``` bash
+### Key Features
+- **Interactive 3D Driving Mechanics**: Realistic vehicle physics simulation using Rapier 3D with acceleration, drifting, reversing, boosting, jumping, and suspension hydraulics.
+- **Dynamic Environment**: Real-time day/night cycles, seasonal transitions, dynamic weather (rain, snow, lightning, wind), and atmospheric effects.
+- **Circuit Racing**: Timed race track with checkpoints, lap timer, and local & online leaderboards.
+- **Interactive Zones & Secrets**: Bowling alley, domino/brick destruction, explosive crates, bonfire reset, chaos altar, portals, and hidden easter eggs.
+- **Achievement System**: Over 35 unique achievements tracking exploration, driving stunts, and discoveries.
+- **Multi-Device Support**: Optimized for Keyboard + Mouse, Touch screen devices (smartphones and tablets), and Gamepads (Xbox & PlayStation controllers).
+- **Next-Gen Rendering**: Dual WebGL and WebGPU rendering pipeline using Three.js and Three Shading Language (TSL).
+
+---
+
+## Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (version 18 or newer recommended)
+- Modern desktop browser (Chrome, Edge, Firefox, or Safari with WebGL 2.0 / WebGPU support)
+
+### Installation
+
+```bash
 # Install dependencies
 npm install --force
 
-# Serve at localhost:1234
+# Start local development server
 npm run dev
 
-# Build for production in the dist/ directory
+# Build for production
 npm run build
+
+# Preview production build locally
+npm run preview
 ```
 
-## Game loop
+The game will launch directly in your default browser at `http://localhost:1234` or the port displayed in your terminal.
 
-#### 0
+---
 
-- Time
-- Inputs
+## Controls
 
-#### 1
+### Keyboard & Mouse
+| Input | Action |
+| --- | --- |
+| **WASD** / **Arrow Keys** | Steer, accelerate, reverse |
+| **Left Shift** | Turbo Boost |
+| **Left Ctrl** / **B** | Brake |
+| **Space** | Jump |
+| **Enter** | Interact with world points |
+| **M** | Toggle Map |
+| **L** | Mute / Unmute Audio |
+| **R** | Respawn at nearest checkpoint |
+| **H** | Honk Horn |
+| **Number Keys / Numpad** | Hydraulic suspension lifts |
+| **Left Click + Drag** | Rotate camera |
+| **Mouse Wheel** | Zoom camera |
 
-- Player:pre-physics (Inputs)
+### Gamepad
+| Button (Xbox / PS) | Action |
+| --- | --- |
+| **LT / L2** | Accelerate |
+| **RT / R2** | Reverse |
+| **Left Stick** | Steering |
+| **Right Stick** | Camera control |
+| **B / Circle** | Boost |
+| **X / Square** | Brake |
+| **Y / Triangle** | Jump |
+| **A / Cross** | Interact / Exit |
+| **LB / RB (L1 / R1)** | Hydraulics |
+| **Select / Share** | Reset world |
+| **Start / Options** | Pause / Menu |
 
-#### 2
+---
 
-- PhysicalVehicle:pre-physics (Player:pre-physics)
+## Project Architecture
 
-#### 3
+- **`sources/Game/`**: Core game engine architecture.
+  - `Game.js`: Central game coordinator singleton.
+  - `Physics/`: Rapier 3D physics engine and vehicle dynamics (`PhysicsVehicle.js`).
+  - `World/`: Environment objects, terrain, flora, weather, and interactive areas (`Areas/`).
+  - `Inputs/`: Unified input router supporting Keyboard, Mouse, Touch, and Gamepads.
+  - `Cycles/`: Day/night and seasonal progression systems.
+  - `Rendering.js`: WebGPU/WebGL postprocessing and rendering pipeline.
+  - `Audio.js`: 3D spatial audio management with Howler.js.
+  - `Achievements.js`: Game progression and unlockable skin rewards.
+- **`sources/style/`**: Stylus styles for HUD, menus, interactive dialogs, and loaders.
+- **`static/`**: 3D models (GLTF/GLB), KTX compressed textures, audio files, and UI assets.
 
-- Physics
+---
 
-#### 4
+## Credits & Licensing
 
-- PhysicsWireframe (Physics)
-- Objects (Physics)
-
-#### 5
-
-- PhysicalVehicle:post-physics (Player:pre-physics)
-
-#### 6
-
-- Player:post-physics (Physics, PhysicalVehicle:post-physics)
-
-#### 7
-
-- View (Inputs, Player:post-physics)
-
-#### 8
-
-- Intro
-- DayCycles
-- YearCycles
-- Weather (DayCycles, YearCycles)
-- Zones (Player:post-physics)
-- VisualVehicle (PhysicalVehicle:post-physics, Inputs, Player:post-physics, View)
-
-#### 9
-
-- Wind (Weather)
-- Lighting (DayCycles, View)
-- Tornado (DayCycles, PhysicalVehicle)
-- InteractivePoints (Player:post-physics)
-- Tracks (VisualVehicle)
-
-#### 10
-
-- Area++ (View, PhysicalVehicle:post-physics, Player:post-physics, Wind)
-- Foliage (VisualVehicle, View)
-- Fog (View)
-- Reveal (DayCycles)
-- Terrain (Tracks)
-- Trails (PhysicalVehicle)
-- Floor (View)
-- Grass (View, Wind)
-- Leaves (View, PhysicalVehicle)
-- Lightnings (View, Weather)
-- RainLines (View, Weather, Reveal)
-- Snow (View, Weather, Reveal, Tracks)
-- VisualTornado (Tornado)
-- WaterSurface (Weather, View)
-- Benches (Objects)
-- Bricks (Objects)
-- ExplosiveCrates (Objects)
-- Fences (Objects)
-- Lanterns (Objects)
-- Whispers (Player)
-
-#### 13
-
-- InstancedGroup (Objects, [SpecificObjects])
-
-#### 14
-
-- Audio (View, Objects)
-- Notifications
-- Title (PhysicalVehicle:post-physics)
-
-#### 998
-
-- Rendering
-
-#### 999
-
-- Monitoring
-
-## Blender
-
-### Export
-
-- Mute the palette texture node (loaded and set in Three.js `Material` directly)
-- Use corresponding export presets
-- Don't use compression (will be done later)
-
-### Compress
-
-Run `npm run compress`
-
-Will do the following
-
-#### GLB
-
-- Traverses the `static/` folder looking for glb files (ignoring already compressed files)
-- Compresses embeded texture with `etc1s --quality 255` (lossy, GPU friendly)
-- Generates new files to preserve originals
-
-#### Texture files
-
-- Traverses the `static/` folder looking for `png|jpg` files (ignoring non-model related folders)
-- Compresses with default preset to `--encode etc1s --qlevel 255` (lossy, GPU friendly) or specific preset according to path
-- Generates new files to preserve originals
-
-#### UI files
-
-- Traverses the `static/ui.` folder looking for `png|jpg` files
-- Compresses to WebP
-
-#### Resources
-
-- https://gltf-transform.dev/cli
-- https://github.com/KhronosGroup/KTX-Software?tab=readme-ov-file
-- https://github.khronos.org/KTX-Software/ktxtools/toktx.html
+- **Creator & Personalization**: Rohith Kumar
+- **Original Foundation**: [Folio 2025](https://github.com/brunosimon/folio-2025) by Bruno Simon, licensed under the [MIT License](LICENSE.md).
+- **Soundtrack**: Composed by Kounine ([CC0 License](https://creativecommons.org/publicdomain/zero/1.0/)).
+- **Full Details**: Please see [CREDITS.md](CREDITS.md) for full licensing and attribution information.

@@ -389,3 +389,81 @@ html:not(.is-server-offline) .offline-element
 html:not(.is-server-online) .online-element
     display none !important
 
+.rk-loader
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 999
+    display flex
+    align-items center
+    justify-content center
+    background radial-gradient(farthest-side at 50% 40%, #2b1f33, #150f1a)
+    transition opacity 0.8s ease, visibility 0.8s ease
+    opacity 1
+    visibility visible
+    pointer-events all
+
+    html.is-started &
+        opacity 0
+        visibility hidden
+        pointer-events none
+
+    .rk-loader-inner
+        display flex
+        flex-direction column
+        align-items center
+        text-align center
+        color #ffffff
+        user-select none
+
+    .rk-loader-title
+        font-family "Amatic SC", sans-serif
+        font-size 5rem
+        font-weight 700
+        letter-spacing 6px
+        line-height 1
+        background linear-gradient(135deg, #ffffff 40%, #e88eff 100%)
+        -webkit-background-clip text
+        -webkit-text-fill-color transparent
+        text-shadow 0 0 40px rgba(232, 142, 255, 0.4)
+
+    .rk-loader-sub
+        font-family "Nunito", sans-serif
+        font-size 0.75rem
+        font-weight 700
+        letter-spacing 5px
+        color #cda7f3
+        opacity 0.9
+        margin-top 4px
+
+    .rk-loader-line
+        width 80px
+        height 2px
+        margin 20px 0 16px 0
+        background linear-gradient(90deg, transparent, #e88eff, transparent)
+        animation rkPulse 2s ease-in-out infinite
+
+    .rk-loader-status
+        font-family "Nunito", sans-serif
+        font-size 0.65rem
+        letter-spacing 3px
+        color rgba(255, 255, 255, 0.5)
+        animation rkFade 1.5s ease-in-out infinite alternate
+
+@keyframes rkPulse
+    0%, 100%
+        opacity 0.3
+        transform scaleX(0.7)
+    50%
+        opacity 1
+        transform scaleX(1.3)
+
+@keyframes rkFade
+    0%
+        opacity 0.3
+    100%
+        opacity 0.85
+
+

@@ -13,6 +13,7 @@ export default {
     {
         // https: true,
         host: true, // Open to local network and display URL
+        allowedHosts: true,
         open: true // Open in browser
     },
     build:

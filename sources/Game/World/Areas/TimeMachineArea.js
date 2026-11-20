@@ -24,7 +24,12 @@ export class TimeMachineArea extends Area
             InteractivePoints.STATE_CONCEALED,
             () =>
             {
-                window.open('https://2019.bruno-simon.com')
+                const clickSound = this.game.audio.groups.get('click')
+                if(clickSound)
+                    clickSound.play(true)
+
+                if(this.game.dayCycles)
+                    this.game.dayCycles.progress.value = (this.game.dayCycles.progress.value + 0.25) % 1
             },
             () =>
             {

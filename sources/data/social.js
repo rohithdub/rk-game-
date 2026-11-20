@@ -1,10 +1,10 @@
 export default [
-    { name: 'X', url: 'https://x.com/bruno_simon', align: 'right' },
-    { name: 'Bluesky', url: 'https://bsky.app/profile/bruno-simon.bsky.social', align: 'right' },
-    { name: 'Youtube', url: 'https://www.youtube.com/@BrunoSimon', align: 'right' },
-    { name: 'Mail', url: 'mailto:simon.bruno.77@gmail.com', align: 'right' },
-    { name: 'Twitch', url: 'https://www.twitch.tv/bruno_simon_dev', align: 'right' },
-    { name: 'GitHub', url: 'https://github.com/brunosimon', align: 'right' },
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/simonbruno77/', align: 'left' },
+    { name: 'RK WORLD', menu: 'home', align: 'right' },
+    { name: 'Controls', menu: 'controls', align: 'right' },
+    { name: 'Circuit', menu: 'circuit', align: 'right' },
+    { name: 'Achievements', menu: 'achievements', align: 'right' },
+    { name: 'Options', menu: 'options', align: 'right' },
+    { name: 'Behind the Scene', menu: 'behindTheScene', align: 'left' },
+    { name: 'Map', modal: 'map', align: 'left' },
     { name: 'Discord', modal: 'discord', align: 'left' },
 ]
