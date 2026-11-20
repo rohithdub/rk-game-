@@ -69,6 +69,9 @@ export class Game
 
     async init()
     {
+        // Start Rapier 3D WASM loading in parallel immediately
+        const rapierPromise = import('@dimforge/rapier3d')
+
         // Setup
         this.domElement = document.querySelector('.game')
         this.canvasElement = this.domElement.querySelector('.js-canvas')
@@ -125,12 +128,10 @@ export class Game
         this.explosions = new Explosions()
         this.world = new World()
 
-        // Load and init RAPIER
-        const rapierPromise = import('@dimforge/rapier3d')
-
         // Load rest of resources
         const resourcesPromise = this.resourcesLoader.load(
             [
+                [ 'introMouseKeyboardLabelTexture',        `intro/mouseKeyboardLabel.${compressedTextureExtension}`,                             compressedTextureFormat, (resource) => { resource.minFilter = THREE.LinearFilter; resource.magFilter = THREE.LinearFilter; resource.generateMipmaps = false; } ],
                 [ 'foliageTexture',                        `foliage/foliageSDF.${compressedTextureExtension}${cb}`,                              compressedTextureFormat, (resource) => { resource.minFilter = THREE.NearestFilter; resource.magFilter = THREE.NearestFilter; resource.generateMipmaps = false; } ],
                 [ 'bushesReferences',                      `bushes/bushesReferences${compressedModelSuffix}.glb${cb}`,                           'gltf' ],
                 [ 'vehicle',                               `vehicle/default${compressedModelSuffix}.glb${cb}`,                                   'gltf' ],

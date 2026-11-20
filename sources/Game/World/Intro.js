@@ -146,6 +146,12 @@ export class Intro
 
             // Load, set and save texture
             let cachedTexture = this.text.textures.get(name)
+            if(!cachedTexture && name === 'mouseKeyboard' && this.game.resources?.introMouseKeyboardLabelTexture)
+            {
+                cachedTexture = this.game.resources.introMouseKeyboardLabelTexture
+                this.text.textures.set(name, cachedTexture)
+            }
+
             if(!cachedTexture)
             {
                 const loader = this.game.resourcesLoader.getLoader('textureKtx')

@@ -131,54 +131,67 @@ export class LandingArea extends Area
         canvas.height = 256
         const ctx = canvas.getContext('2d')
 
-        // Background
-        ctx.fillStyle = 'rgba(8, 14, 26, 0.96)'
-        if(ctx.roundRect)
-            ctx.roundRect(16, 16, 992, 224, 8)
-        else
-            ctx.fillRect(16, 16, 992, 224)
-        ctx.fill()
+        const drawSign = () =>
+        {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        // Outer border - sharp electric blue
-        ctx.strokeStyle = '#00d2ff'
-        ctx.lineWidth = 6
-        ctx.shadowColor = 'rgba(0, 210, 255, 0.6)'
-        ctx.shadowBlur = 15
-        if(ctx.roundRect)
-            ctx.roundRect(16, 16, 992, 224, 8)
-        else
-            ctx.strokeRect(16, 16, 992, 224)
-        ctx.stroke()
+            // Background
+            ctx.fillStyle = 'rgba(8, 14, 26, 0.96)'
+            if(ctx.roundRect)
+                ctx.roundRect(16, 16, 992, 224, 8)
+            else
+                ctx.fillRect(16, 16, 992, 224)
+            ctx.fill()
 
-        // Inner glowing border - metallic cyan
-        ctx.shadowBlur = 0
-        ctx.strokeStyle = 'rgba(92, 225, 230, 0.5)'
-        ctx.lineWidth = 2
-        if(ctx.roundRect)
-            ctx.roundRect(24, 24, 976, 208, 4)
-        else
-            ctx.strokeRect(24, 24, 976, 208)
-        ctx.stroke()
+            // Outer border - sharp electric blue
+            ctx.strokeStyle = '#00d2ff'
+            ctx.lineWidth = 6
+            ctx.shadowColor = 'rgba(0, 210, 255, 0.6)'
+            ctx.shadowBlur = 15
+            if(ctx.roundRect)
+                ctx.roundRect(16, 16, 992, 224, 8)
+            else
+                ctx.strokeRect(16, 16, 992, 224)
+            ctx.stroke()
 
-        // Main text: EXPLORE THE ISLAND (Bold geometric gaming typography)
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        ctx.font = '900 64px "Orbitron", "Rajdhani", sans-serif'
-        ctx.fillStyle = '#ffffff'
-        ctx.shadowColor = '#00d2ff'
-        ctx.shadowBlur = 24
-        ctx.fillText('EXPLORE THE ISLAND', 512, 102)
+            // Inner glowing border - metallic cyan
+            ctx.shadowBlur = 0
+            ctx.strokeStyle = 'rgba(92, 225, 230, 0.5)'
+            ctx.lineWidth = 2
+            if(ctx.roundRect)
+                ctx.roundRect(24, 24, 976, 208, 4)
+            else
+                ctx.strokeRect(24, 24, 976, 208)
+            ctx.stroke()
 
-        // Subtitle: RK WORLD // CREATED BY ROHITH KUMAR
-        ctx.shadowBlur = 0
-        ctx.font = '700 20px "Rajdhani", sans-serif'
-        ctx.fillStyle = '#8ba2be'
-        ctx.letterSpacing = '4px'
-        ctx.fillText('RK WORLD  //  CREATED BY ROHITH KUMAR', 512, 172)
+            // Main text: EXPLORE THE ISLAND (Bold geometric gaming typography)
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.font = '900 64px "Orbitron", "Rajdhani", sans-serif'
+            ctx.fillStyle = '#ffffff'
+            ctx.shadowColor = '#00d2ff'
+            ctx.shadowBlur = 24
+            ctx.fillText('EXPLORE THE ISLAND', 512, 102)
+
+            // Subtitle: RK WORLD // CREATED BY ROHITH KUMAR
+            ctx.shadowBlur = 0
+            ctx.font = '700 20px "Rajdhani", sans-serif'
+            ctx.fillStyle = '#8ba2be'
+            ctx.letterSpacing = '4px'
+            ctx.fillText('RK WORLD  //  CREATED BY ROHITH KUMAR', 512, 172)
+
+            if(canvasTexture)
+                canvasTexture.needsUpdate = true
+        }
 
         const canvasTexture = new THREE.CanvasTexture(canvas)
         canvasTexture.colorSpace = THREE.SRGBColorSpace
-        canvasTexture.needsUpdate = true
+        canvasTexture.minFilter = THREE.LinearFilter
+        canvasTexture.magFilter = THREE.LinearFilter
+        canvasTexture.generateMipmaps = false
+
+        drawSign()
+        document.fonts?.ready?.then?.(() => drawSign())
 
         const geometry = new THREE.PlaneGeometry(8, 2)
         const material = new THREE.MeshBasicMaterial({

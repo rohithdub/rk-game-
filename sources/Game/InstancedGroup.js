@@ -1,6 +1,8 @@
 import * as THREE from 'three/webgpu'
 import { Game } from './Game.js'
 
+const _tempMatrix = new THREE.Matrix4()
+
 export class InstancedGroup
 {
     constructor(references = [], group = null, autoUpdate = true)
@@ -103,8 +105,8 @@ export class InstancedGroup
 
                 for(const instancedMesh of this.meshes)
                 {
-                    const finalMatrix = instancedMesh.localMatrix.clone().premultiply(_reference.matrixWorld)
-                    instancedMesh.instance.setMatrixAt(i, finalMatrix)
+                    _tempMatrix.copy(instancedMesh.localMatrix).premultiply(_reference.matrixWorld)
+                    instancedMesh.instance.setMatrixAt(i, _tempMatrix)
                 }
             }
 
