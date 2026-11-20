@@ -67,7 +67,7 @@ export class Overlay
         this.mesh = new THREE.Mesh(geometry, material)
         this.mesh.frustumCulled = false
         this.mesh.renderOrder = 99
-        this.mesh.visible = true
+        this.mesh.visible = false
         this.game.scene.add(this.mesh)
 
         // Debug
@@ -138,6 +138,8 @@ export class Overlay
 
     moveOnTop()
     {
+        if(this.progress.value === 0)
+            this.mesh.visible = false
         this.game.scene.add(this.mesh)
     }
 }

@@ -23,41 +23,101 @@ export class LandingArea extends Area
 
     setLetters()
     {
-        const references = this.references.items.get('letters')
+        const letterObjects = []
 
-        if(references)
+        // 1. Check all references for any letter references
+        for(const [key, items] of this.references.items.entries())
         {
-            for(const reference of references)
+            if(key.toLowerCase().includes('letter'))
             {
-                // Remove Bruno Simon 3D visual letters
-                if(reference.userData?.object?.visual?.object3D)
+                for(const item of items)
                 {
-                    reference.userData.object.visual.object3D.visible = false
-                }
-                // Disable physical body so it doesn't block the car
-                if(reference.userData?.object?.physical?.body)
-                {
-                    reference.userData.object.physical.body.setEnabled(false)
+                    letterObjects.push(item)
                 }
             }
         }
 
-        this.setExploreSign()
+        // 2. Also check model children directly
+        if(this.model && this.model.children)
+        {
+            for(const child of this.model.children)
+            {
+                if(child.name && child.name.toLowerCase().includes('letter') && !letterObjects.includes(child))
+                {
+                    letterObjects.push(child)
+                }
+            }
+        }
+
+        // 3. Hide all Bruno Simon 3D letters and disable their physics bodies
+        for(const obj of letterObjects)
+        {
+            obj.visible = false
+            if(obj.traverse)
+            {
+                obj.traverse(c => { c.visible = false })
+            }
+
+            if(obj.userData?.object?.visual?.object3D)
+            {
+                obj.userData.object.visual.object3D.visible = false
+                obj.userData.object.visual.object3D.traverse(c => { c.visible = false })
+            }
+
+            if(obj.userData?.object?.physical?.body)
+            {
+                obj.userData.object.physical.body.setEnabled(false)
+            }
+        }
+
+        // 4. Also scan scene directly to hide any letter meshes added to scene root
+        const hideAllSceneLetters = () =>
+        {
+            if(this.game.scene)
+            {
+                for(const child of this.game.scene.children)
+                {
+                    if(child.name && child.name.toLowerCase().includes('letter'))
+                    {
+                        child.visible = false
+                        child.traverse?.(c => { c.visible = false })
+                        if(child.userData?.object?.physical?.body)
+                        {
+                            child.userData.object.physical.body.setEnabled(false)
+                        }
+                    }
+                }
+            }
+        }
+        hideAllSceneLetters()
+        this.game.ticker.wait(5, hideAllSceneLetters)
+        this.game.ticker.wait(60, hideAllSceneLetters)
+
+        this.setExploreSign(letterObjects)
     }
 
-    setExploreSign()
+    setExploreSign(letterObjects = [])
     {
-        const references = this.references.items.get('letters')
-        if(!references || !references.length)
-            return
-
         // Calculate center position
-        const center = new THREE.Vector3()
-        for(const ref of references)
+        const center = new THREE.Vector3(49.25, 3.27, 38.52)
+        if(letterObjects.length > 0)
         {
-            center.add(ref.position)
+            const sum = new THREE.Vector3()
+            let count = 0
+            for(const ref of letterObjects)
+            {
+                if(ref.position)
+                {
+                    sum.add(ref.position)
+                    count++
+                }
+            }
+            if(count > 0)
+            {
+                sum.divideScalar(count)
+                center.copy(sum)
+            }
         }
-        center.divideScalar(references.length)
 
         // 3D Explore Sign Group
         const group = new THREE.Group()
@@ -112,12 +172,13 @@ export class LandingArea extends Area
         ctx.fillStyle = '#cda7f3'
         ctx.fillText('RK WORLD', 512, 178)
 
-        const texture = new THREE.CanvasTexture(canvas)
-        texture.colorSpace = THREE.SRGBColorSpace
+        const canvasTexture = new THREE.CanvasTexture(canvas)
+        canvasTexture.colorSpace = THREE.SRGBColorSpace
+        canvasTexture.needsUpdate = true
 
         const geometry = new THREE.PlaneGeometry(8, 2)
-        const material = new THREE.MeshBasicNodeMaterial({
-            map: texture,
+        const material = new THREE.MeshBasicMaterial({
+            map: canvasTexture,
             transparent: true,
             side: THREE.DoubleSide
         })
@@ -127,7 +188,7 @@ export class LandingArea extends Area
 
         // Support posts
         const postGeometry = new THREE.CylinderGeometry(0.08, 0.08, 2.6, 8)
-        const postMaterial = new THREE.MeshBasicNodeMaterial({ color: 0x3d3047 })
+        const postMaterial = new THREE.MeshBasicMaterial({ color: 0x3d3047 })
 
         const leftPost = new THREE.Mesh(postGeometry, postMaterial)
         leftPost.position.set(-3.2, -0.6, 0)

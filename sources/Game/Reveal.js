@@ -177,8 +177,7 @@ export class Reveal
                 this.game.view.zoom,
                 {
                     baseRatio: 0,
-                    // smoothedRatio: 0,
-                    ease: 'back.in(1.5)',
+                    ease: 'power2.inOut',
                     duration: 1.75 / speedMultiplier,
                     overwrite: true,
                     onComplete: () =>
@@ -204,20 +203,37 @@ export class Reveal
         }
         else if(step === 2)
         {
-            this.game.interactivePoints.recover()
-            
-            this.game.world.step(2)
-            this.game.world.grid.destroy()
-            this.game.world.intro.destroy()
-            this.game.world.intro = null
+            try
+            {
+                this.game.interactivePoints.recover()
+                
+                this.game.world.step(2)
+                if(this.game.world.grid)
+                {
+                    this.game.world.grid.destroy()
+                    this.game.world.grid = null
+                }
+                if(this.game.world.intro)
+                {
+                    this.game.world.intro.destroy()
+                    this.game.world.intro = null
+                }
 
-            this.game.overlay.moveOnTop()
+                if(this.game.overlay)
+                    this.game.overlay.moveOnTop()
 
-            this.game.server.start()
+                if(this.game.server)
+                    this.game.server.start()
 
-            this.game.menu.preopen()
+                if(this.game.menu)
+                    this.game.menu.preopen()
 
-            this.game.ticker.events.off('tick', this.update)
+                this.game.ticker.events.off('tick', this.update)
+            }
+            catch(error)
+            {
+                console.error('Error in Reveal step 2:', error)
+            }
         }
 
         this.step = step
